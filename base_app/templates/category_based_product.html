@@ -1,0 +1,68 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+ 
+      <!--slide areas start-->
+      <div id="page-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="page-title-content">
+                        <h1>Products</h1>
+                        <ul class="breadcrumb">
+                            <li><a href="{%url 'Home'%}">Home</a></li>
+                            <li><a href="#" class="active">All Products</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ <div class="container">
+   <!--message showing-->
+   {%if messages %} {% for message in messages %}
+   <div class="alert alert-{{ message.tags }}" role="alert">
+       {{message}}
+   </div>
+   {% endfor %} {% endif %}
+
+   
+    <div class="row my-3 gy-3">
+        {% for p in product %}
+      <div class="col-sm-4">
+        <div class="card">
+           <a href="{% url 'product_details' p.category.slug  p.id%}"><img class="card-img-top" src="{{p.ImageUrl}}" alt="Card image cap"></a>
+              <div class="card-body text-center">
+                  <a href="{% url 'product_details' p.category.slug p.id%}"><h2 class="card-text">{{p.title}}</h2></a><br>
+                  <del><h3 class="text-danger">${{p.old_price}}</h3></del>
+                  <h3 class="text-success">${{p.new_price}}</h3>
+                  <a href="{%url 'Add_to_Shoping_cart' id=p.id %}" class="btn btn-add-to-cart">Add to Cart</a>
+              </div>
+        </div>
+        <br>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+
+ <!--main body end-->
+
+ {% endblock %}
+
+
+ <!--footer part-->
+{% block footer %}
+
+  {% include "footer.html" %}
+
+{% endblock footer %}

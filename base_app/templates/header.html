@@ -1,0 +1,134 @@
+{%load static%}
+<!--== Header Area Start ==-->
+<header id="header-area">
+    <div class="ruby-container">
+        <div class="row">
+            <!-- Logo Area Start -->
+            <div class="col-3 col-lg-1 col-xl-2 m-auto">
+                <a href="{% url 'Home' %}" class="logo-area">
+                    <img src="{{setting.ImageUrl}}" alt="Logo" class="img-fluid"/>
+                </a>
+            </div>
+            <!-- Logo Area End -->
+
+            <!-- Navigation Area Start -->
+            <div class="col-3 col-lg-9 col-xl-8 m-auto">
+                <div class="main-menu-wrap">
+                    <nav id="mainmenu">
+                        <ul>
+                            <!--home tag-->
+
+                            <li><a href="{% url 'Home' %}">Home</a></li>
+                             <!--product tag-->
+                            <li><a href="{% url 'gender_category' %}">Products</a></li>
+
+
+                            <li class="dropdown-show"><a href="#">Pages</a>
+                                <ul class="dropdown-nav">
+                                    <li><a href="{% url "cart_detials" %}">Shopping Cart</a></li>
+                                    <li><a href="{% url 'OrderCart' %}">Checkout</a></li>
+                                    <li><a href="{%url 'wishlist_detials' %}">Wishlist</a></li>
+                                    <li><a href="{% url 'user_login' %}">Login</a></li>
+                                    <li><a href="{% url 'user_register' %}">Register</a></li>
+                                    <li><a href="{% url 'userprofile' %}">My Account</a></li>
+                                </ul>
+                            </li>
+                            <!--men list tag-->
+                            <li><a href="{% url 'men_category' %}">Men</a></li>
+
+                            <!--women list tag-->
+                            <li><a href="{% url 'women_category' %}">Women</a></li>
+
+                            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <!-- Navigation Area End -->
+
+            <!-- Header Right Meta Start -->
+            <div class="col-6 col-lg-2 m-auto">
+                <div class="header-right-meta text-left">
+                    <ul>
+                        <li><a href="#" class="modal-active"><i class="fa fa-search"></i></a></li>
+                        <li class="settings"><a href="#"><i class="fa fa-cog"></i></a>
+                            <div class="site-settings d-block d-sm-flex">
+
+                                <dl class="my-account">
+                                    <dt>My Account</dt>
+
+                                    {% if user.id is not None %}
+                                        <dd><a href="{% url 'userprofile' %}">Hi, <b>{{request.user.username}}</b></a></dd>
+                                        <dd><a href="{% url 'user_logout'%}">Logout</a></dd>
+                                        <dd><a href="{% url 'OrderCart' %}">Checkout</a></dd>
+
+                                        {% else %}
+
+                                        <dd><a href="{% url 'user_login' %}">Login</a></dd>
+                                        <dd><a href="{% url 'user_register' %}">Register</a></dd>
+                                        {% endif %}
+                                
+                                </dl>
+
+                            </div>
+                        </li>
+                        <li class="shop-cart"><a href="#"><i class="fa fa-shopping-bag"></i> </a>
+                            <div class="mini-cart">
+                                <div class="mini-cart-body">
+
+
+                                    {% for p in cart_product %}
+                                    <div class="single-cart-item d-flex">
+                                        <figure class="product-thumb">
+                                            <a href="#"><img class="img-fluid" src="{{p.product.ImageUrl}}"
+                                                             alt="Products"/></a>
+                                        </figure>
+
+                                        <div class="product-details">
+                                            <h2><a href="#">{{p.product.title}}</a></h2>
+                                            <div class="cal d-flex align-items-center">
+                                                <span class="quantity">{{p.quantity}}</span>
+                                                <span class="multiplication">X</span>
+                                                <span class="price">${{p.product.new_price}}</span>
+                                            </div>
+                                        </div>
+                                        <a href="{%url 'cart_delete' id=p.id%}" class="remove-icon"><i class="fa fa-trash-o"></i></a>
+                                    </div>
+ 
+                                    {% endfor %}
+
+
+                                </div>
+                                <div class="mini-cart-footer">
+                                    <a href="{%url 'cart_detials' %}" class="btn-add-to-cart">View Full Cart</a>
+                                </div>
+                                <div class="mini-cart-footer">
+                                    <a href="{% url 'OrderCart' %}" class="btn-add-to-cart">Checkout</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Header Right Meta End -->
+        </div>
+    </div>
+</header>
+<!--== Header Area End ==-->
+
+<!--== Search Box Area Start ==-->
+<div class="body-popup-modal-area">
+    <span class="modal-close"><img src="{%static ''%}assets/img/cancel.png" alt="Close" class="img-fluid"/></span>
+    <div class="modal-container d-flex">
+        <div class="search-box-area">
+            <div class="search-box-form">
+                <form action="{%url 'search_view' %}" method="post">
+                       {% csrf_token %}
+                    <input type="search" placeholder="type keyword and hit enter" id="query" name="query">
+                    <button class="btn" type="button"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Search Box Area End ==-->

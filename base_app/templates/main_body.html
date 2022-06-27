@@ -1,0 +1,445 @@
+{%load static%}
+<!--== Banner // Slider Area Start ==-->
+<section id="banner-area">
+    <div class="ruby-container">
+        
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="banner-carousel" class="owl-carousel">
+                    <!-- Banner Single Carousel Start -->
+                    <div class="single-carousel-wrap slide-item-1">
+                        <div class="banner-caption text-center text-lg-left">
+                            <h4>Rubby Ecommerce</h4>
+                            <h2>Ring Solitaire Princess</h2>
+                            <p>We believe in trust. So we will never break your trust....</p>
+                            <a href="{% url 'gender_category' %}" class="btn-long-arrow">Shop Now</a>
+                        </div>
+                    </div>
+                    <!-- Banner Single Carousel End -->
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--== Banner Slider End ==-->
+
+<!--== About Us Area Start ==-->
+<section id="aboutUs-area" class="pt-9">
+    <div class="ruby-container">
+        <div class="row">
+            <div class="col-lg-6">
+                <!-- About Image Area Start -->
+                <div class="about-image-wrap">
+                    <a href="about.html"><img src="{%static ''%}assets/img/about-img.png" alt="About Us" class="img-fluid"/></a>
+                </div>
+                <!-- About Image Area End -->
+            </div>
+
+            <div class="col-lg-6 m-auto">
+                <!-- About Text Area Start -->
+                <div class="about-content-wrap ml-0 ml-lg-5 mt-5 mt-lg-0">
+                    <h2>About Us</h2>
+                    <h3>WE ARE VISIONARY</h3>
+                    <div class="about-text">
+                        <p>{{setting.description}}</p>
+
+
+                        <h4 class="vertical-text">WHO WE ARE?</h4>
+                    </div>
+                </div>
+                <!-- About Text Area End -->
+            </div>
+        </div>
+    </div>
+</section>
+<!--== About Us Area End ==-->
+
+<!--== New Collection Area Start ==-->
+<section id="new-collection-area" class="p-9">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h2>New Collection Products</h2>
+                    <p>Best products on sale.</p>
+                </div>
+                <!-- Section Title End -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <!--message showing -->
+
+        {%if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{message}}
+        </div>
+        {% endfor %} {% endif %}
+
+        
+                <div class="new-collection-tabs">
+
+                    <!-- Tab Menu Area Start -->
+                    <ul class="nav tab-menu-wrap" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="active" id="feature-products-tab" data-toggle="tab" href="#feature-products"
+                               role="tab" aria-controls="feature-products-tab" aria-selected="true">Feature Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="new-products-tab" data-toggle="tab" href="#new-products" role="tab"
+                               aria-controls="new-products" aria-selected="false">New Products</a>
+                        </li>
+
+                    </ul>
+                    <!-- Tab Menu Area End -->
+
+                    <!-- Tab Content Area Start -->
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="feature-products" role="tabpanel"
+                             aria-labelledby="feature-products-tab">
+                            <div class="products-wrapper">
+                                <div class="products-carousel owl-carousel">
+                                    <!-- Single Product Item -->
+                                {% for p in feature_product %}
+                                    <div class="single-product-item text-center">
+                                        <figure class="product-thumb">
+                                            <a href="{% url 'product_details' p.category.slug p.id%}"><img src="{{p.ImageUrl}}"
+                                                                               alt="Products" class="img-fluid"></a>
+                                        </figure>
+
+                                        <div class="product-details">
+                                            <h2><a href="{% url 'product_details' p.category.slug p.id%}"><b>{{p.title}}</b></a></h2>
+                                            <del><span class="product-stock-status text-danger"><b>${{p.old_price}}</b></span></del>
+                                            <span class="price text-success"><b>${{p.new_price}}</b></span>
+                                            <a href="{%url 'Add_to_Shoping_cart' id=p.id %}" class="btn btn-add-to-cart">+ Add to Cart</a>
+                                            <span class="product-bedge">New</span>
+                                        </div>
+
+                                        <div class="product-meta">
+                                            <button type="button" data-toggle="modal" data-target="#quickView">
+                                                <span data-toggle="tooltip" data-placement="left" title="Quick View"><i
+                                                        class="fa fa-compress"></i></span>
+                                            </button>
+                                            <a href="{% url 'add_to_user_wishlist' id=p.id%}" data-toggle="tooltip" data-placement="left"
+                                               title="Add to Wishlist"><i class="fa fa-heart-o"></i></a>
+                                            
+                                        </div>
+                                    </div>
+                                    {%endfor%}
+                                    <!-- Single Product Item -->
+
+                                    <!-- Single Product Item -->
+                                    
+                                    <!-- Single Product Item -->
+
+                                    <!-- Single Product Item -->
+                                   
+                                    <!-- Single Product Item -->
+
+                                    <!-- Single Product Item -->
+                                   
+                                    <!-- Single Product Item -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="new-products" role="tabpanel" aria-labelledby="new-products-tab">
+                            <div class="products-wrapper">
+                                <div class="products-carousel owl-carousel">
+                                    <!-- Single Product Item -->
+                                    {% for p in new_product %}
+                                    <div class="single-product-item text-center">
+                                        <figure class="product-thumb">
+                                            <a href="{% url 'product_details' p.category.slug p.id%}"><img src="{{p.ImageUrl}}"
+                                                                               alt="Products" class="img-fluid"></a>
+                                        </figure>
+
+                                        <div class="product-details">
+                                            <h2><a href="{% url 'product_details' p.category.slug p.id%}"><b>{{p.title}}</b></a></h2>
+                                            <del><span class="product-stock-status text-danger"><b>${{p.old_price}}</b></span></del>
+                                            <span class="price text-success"><b>${{p.new_price}}</b></span>
+                                            <a href="{%url 'Add_to_Shoping_cart' id=p.id %}" class="btn btn-add-to-cart">+ Add to Cart</a>
+                                            <span class="product-bedge">New</span>
+                                        </div>
+
+                                        <div class="product-meta">
+                                            <button type="button" data-toggle="modal" data-target="#quickView">
+                                                <span data-toggle="tooltip" data-placement="left" title="Quick View"><i
+                                                        class="fa fa-compress"></i></span>
+                                            </button>
+                                            <a href="{% url 'add_to_user_wishlist' id=p.id%}" data-toggle="tooltip" data-placement="left"
+                                               title="Add to Wishlist"><i class="fa fa-heart-o"></i></a>
+                                            
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                    <!-- Single Product Item -->
+
+                                    <!-- Single Product Item -->
+                                   
+                                    <!-- Single Product Item -->
+
+                                    <!-- Single Product Item -->
+                                    
+                                    <!-- Single Product Item -->
+
+                                    <!-- Single Product Item -->
+                                   
+                                    <!-- Single Product Item -->
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- Tab Content Area End -->
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--== New Collection Area End ==-->
+
+<!--== Products by Category Area Start ==-->
+<div id="product-categories-area">
+    <div class="ruby-container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="large-size-cate">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="single-cat-item">
+                                <figure class="category-thumb">
+                                    <a href="{% url 'women_category' %}"><img src="{%static ''%}assets/img/women-cat.jpg" alt="Women Category"
+                                                     class="img-fluid"/></a>
+
+                                    <figcaption class="category-name">
+                                        <a href="{% url 'women_category' %}">Shop For Women</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="single-cat-item">
+                                <figure class="category-thumb">
+                                    <a href="{% url 'men_category' %}"><img src="{%static ''%}assets/img/men-cat.jpg" alt="Men Category" class="img-fluid"/></a>
+
+                                    <figcaption class="category-name">
+                                        <a href="{% url 'men_category' %}">Shop For Men</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-6">
+                <div class="small-size-cate"> 
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="single-cat-item">
+                                <figure class="category-thumb">
+                                    <a href="category_product/Jewellary"><img src="{%static ''%}assets/img/jewellery-cat.jpg" alt="Men Category"
+                                                     class="img-fluid"/></a>
+                                                     
+                                    <figcaption class="category-name">
+                                        <a href="category_product/Jewellary">Jewellery</a>
+                                    </figcaption>
+                                    
+                                </figure>
+                                
+                            </div>
+                        </div>
+
+                
+                        <div class="col-sm-6">
+                            <div class="single-cat-item">
+                                <figure class="category-thumb">
+                                    <a href="category_product/Kamij"><img src="{%static ''%}assets/img/women-cat2.jpg" alt="Men Category"
+                                                     class="img-fluid"/></a>
+
+                                    <figcaption class="category-name">
+                                        <a href="category_product/Kamij">Kamiz</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="single-cat-item">
+                                <figure class="category-thumb">
+                                    <a href="category_product/Watch"><img src="{%static ''%}assets/img/watch-cat.jpg" alt="Men Category"
+                                                     class="img-fluid"/></a>
+
+                                    <figcaption class="category-name">
+                                        <a href="category_product/Watch">watches</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="single-cat-item">
+                                <figure class="category-thumb">
+                                    <a href="category_product/Men_shut"><img src="{%static ''%}assets/img/suit-cat.jpg" alt="Men Category"
+                                                     class="img-fluid"/></a>
+
+                                    <figcaption class="category-name">
+                                        <a href="category_product/Men_shut">Men Suit</a>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--== Products by Category Area End ==-->
+
+<!--== New Products Area Start ==-->
+<section id="new-products-area" class="p-9">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h2>New Products</h2>
+                    <p>Trending stunning Unique</p>
+                </div>
+                <!-- Section Title End -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="products-wrapper">
+                    <div class="new-products-carousel owl-carousel">
+                        <!-- Single Product Item -->
+                        {% for p in new_product %}
+                        <div class="single-product-item text-center">
+                            <figure class="product-thumb">
+                                <a href="{% url 'product_details' p.category.slug p.id%}"><img src="{{p.ImageUrl}}" alt="Products"
+                                                                   class="img-fluid"></a>
+                            </figure>
+
+                            <div class="product-details">
+                                <h2><a href="{% url 'product_details' p.category.slug p.id%}"><b>{{p.title}}</b></a></h2>
+                                <del><span class="product-stock-status text-danger"><b>${{p.old_price}}</b></span></del>
+                                <span class="price text-success"><b>${{p.new_price}}</b></span>
+                                <a href="{%url 'Add_to_Shoping_cart' id=p.id %}" class="btn btn-add-to-cart">+ Add to Cart</a>
+                                <span class="product-bedge">New</span>
+                            </div>
+
+                            <div class="product-meta">
+                               
+                                
+                                <a href="{% url 'add_to_user_wishlist' id=p.id%}" data-toggle="tooltip" data-placement="left"
+                                   title="Add to Wishlist"><i
+                                        class="fa fa-heart-o"></i></a>
+                                
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                        <!-- Single Product Item -->
+
+                        <!-- Single Product Item -->
+                       
+                        <!-- Single Product Item -->
+
+                        <!-- Single Product Item -->
+                       
+                        <!-- Single Product Item -->
+
+                        <!-- Single Product Item -->
+                     
+                        <!-- Single Product Item -->
+
+                        <!-- Single Product Item -->
+                     
+                        <!-- Single Product Item -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--== New Products Area End ==-->
+
+<!--== Testimonial Area Start ==-->
+<section id="testimonial-area">
+    <div class="ruby-container">
+        <div class="testimonial-wrapper">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <!-- Section Title Start -->
+                    <div class="section-title">
+                        <h2>What People Say</h2>
+                        <p>Testimonials</p>
+                    </div>
+                    <!-- Section Title End -->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-7 m-auto text-center">
+                    <div class="testimonial-content-wrap">
+                        <div id="testimonialCarousel" class="owl-carousel">
+                            {% for p in Contact_message %}
+                            <div class="single-testimonial-item">
+                                <p>{{p.message}}</p>
+
+                                <h3 class="client-name">{{p.name}}</h3>
+                                <span class="client-email">{{p.email}}</span>
+                            </div>
+                            {% endfor %}
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--== Testimonial Area End ==-->
+
+<!--== Newsletter Area Start ==-->
+<section id="newsletter-area" class="p-9">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h2>Join The Newsletter</h2>
+                    <p>Sign Up for Our Newsletter</p>
+                </div>
+                <!-- Section Title End -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 m-auto">
+                <div class="newsletter-form-wrap">
+                    <form method="post" action="{%url 'newsletter' %}" >
+                        {% csrf_token %}
+                        <input type="email" name='email' placeholder="Enter your Email" required/>
+            
+                        <button type="submit" class="btn-long-arrow">Subscribe</button>
+        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--== Newsletter Area End ==-->
+

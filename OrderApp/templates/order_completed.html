@@ -1,0 +1,70 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+  <!--== Page Title Area Start ==-->
+<div id="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1>Checkout</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="{%url 'Home' %}">Home</a></li>
+                        <li><a href="{%url 'gender_category' %}">Products</a></li>
+                        <li><a href="{% url 'OrderCart' %}" class="active">Completed Order</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Title Area End ==-->
+
+
+
+
+ 
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="order-summary clearfix">
+                    <div class="section-title">
+                        <h1 class="text-center"><srtong>Order Completed</strong></h1>
+                    </div>
+                  
+                    <h1 class="text-center"><a class="text-danger"><strong>Congratulations</strong></a></h1>
+                    <h2 class="text-center">Dear {{ user.first_name }} {{  user.last_name }}</h2>
+                    <h3 class="text-center">Your order is completed</h3>
+                    <h3 class="text-center">Order Code : <a class="text-success">{{ ordercode }}</a> </h3>
+                    <h3 class="text-center">Thank You</h3>
+                    <hr>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+ {% endblock %}
+ <!--main body end-->
+ 

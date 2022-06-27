@@ -1,0 +1,230 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+
+     <!--slide areas start-->
+     <div id="page-title-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <div class="page-title-content">
+                        <h1>Products</h1>
+                        <ul class="breadcrumb">
+                            <li><a href="{%url 'Home'%}">Home</a></li>
+                            <li><a href="#" class="active">Single Product</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!--== Page Content Wrapper Start ==-->
+<div id="page-content-wrapper" class="p-9">
+    <div class="ruby-container">
+ <!--message showing-->
+        {%if messages %} {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}" role="alert">
+            {{message}}
+        </div>
+        {% endfor %} {% endif %}
+
+
+        <div class="row">
+            <!-- Single Product Page Content Start -->
+            <div class="col-lg-12">
+                <div class="single-product-page-content">
+                    <div class="row">
+                        <!-- Product Thumbnail Start -->
+                        <div class="col-lg-6">
+                            <div class="product-thumbnail-wrap">
+                                <div class="product-thumb-carousel owl-carousel">
+                                    <div class="single-thumb-item">
+                                        <a href="#"><img class="img-fluid"
+                                                                           src="{{product.ImageUrl}}"
+                                                                           alt="Product"/></a>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product Thumbnail End -->
+
+                        <!-- Product Details Start -->
+                        <div class="col-lg-6 mt-5 mt-lg-0">
+                            <div class="product-details">
+                                <h2><a href="#">{{product.title}}</a></h2>
+
+                               
+                                <del><span class="text-danger price"><b>${{product.old_price}}</b></span></del>
+                                <span class="text-success price">${{product.new_price}}</span>
+
+                                <div class="product-info-stock-sku">
+                                    <span class="product-stock-status">In Stock</span>
+                                    <span class="product-sku-status ml-5"><strong>SKU</strong> MH{{product.amount}}</span>
+                                </div>
+
+                                <p class="products-desc">{{product.short_detail}}</p>
+                                
+
+                                <div class="product-quantity d-flex align-items-center">
+                                    <form action="{%url 'Add_to_Shoping_cart' id=product.id %}" method="post">
+                                    <div class="quantity-field">
+                                        {% csrf_token %}
+                                        <label for="qty">Quantity</label>
+                                
+                                        <input type="number" name='quantity' value="1"/>
+
+                                        </div>
+
+                                    <button type="submit" class="btn btn-add-to-cart">Add to Cart</button>
+                                </form>
+                                </div>
+
+                                <div class="product-btn-group">
+                                    <a href="{% url 'add_to_user_wishlist' id=product.id%}" class="btn btn-add-to-cart btn-whislist">+ Add to
+                                        Wishlist</a>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Product Details End -->
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Product Full Description Start -->
+                            <div class="product-full-info-reviews">
+                                <!-- Single Product tab Menu -->
+                                <nav class="nav" id="nav-tab">
+                                    <a class="active" id="description-tab" data-toggle="tab" href="#description">Description</a>
+                                    <a id="reviews-tab" data-toggle="tab" href="#reviews">Reviews</a>
+                                </nav>
+                                <!-- Single Product tab Menu -->
+
+                                <!-- Single Product tab Content -->
+                                <div class="tab-content" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="description">
+                                        <p>{{product.long_detail}}</p>
+
+                                        <ul>
+                                            <li>Adipisicing elitEnim, laborum.</li>
+                                            <li>Lorem ipsum dolor sit</li>
+                                            <li>Dolorem molestiae quod voluptatem! Sint.</li>
+                                            <li>Iure obcaecati odio pariatur quae saepe!</li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="reviews">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <div class="product-ratting-wrap">
+                                                    <div class="pro-avg-ratting">
+                                                        <h4><big>Comments</big></h4>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="rattings-wrapper">
+
+                                            
+                                                     {% for p in comment_show %}
+                                                    <div class="sin-rattings"> 
+                                                       <div class="ratting-author">
+                                                                <h3>{{p.user.username}}</h3>
+                                                                <div class="ratting-star">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <span>{{p.rate}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <p>{{p.comment}}</p>
+                                                        </div>
+
+                                                    </div>
+                                                     {% endfor %}
+                                                    <div class="ratting-form-wrapper fix">
+                                                        <h3>Add your Comments</h3>
+                                                        <form action="{%url 'Comment_Add' id=product.id %}" method="POST">
+                                                             {% csrf_token %}
+                                                            <div class="ratting-form row">
+                                                                <div class="col-12 mb-4">
+                                                                    <h5>Rating:</h5>
+                                                                    <p class="your-opinion">
+                                                                        
+                                                                        <span>
+                                                                            <select class="star-rating" name="rate">
+                                                                                <option value="1" name="rate">&#11088
+                                                                                </option>
+                                                                                <option value="2" name="rate">&#11088 &#11088
+                                                                                </option>
+                                                                                <option value="3" name="rate">&#11088 &#11088 &#11088
+                                                                                </option>
+                                                                                <option value="4" name="rate">&#11088 &#11088 &#11088 &#11088
+                                                                                </option>
+                                                                                <option value="5" name="rate">&#11088 &#11088 &#11088 &#11088 &#11088
+                                                                                </option>
+                                                                            </select>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-12 mb-4">
+                                                                    <label for="name">Subject :</label>
+                                                                    <input id="subject" name='subject' placeholder="Enter Your Subject here" type="text">
+                                                                </div>
+                                                            
+                                                                <div class="col-12 mb-4">
+                                                                    <label for="your-review">Your Review:</label>
+                                                                    <textarea name='comment' id="your-review"
+                                                                              placeholder="Write a review"></textarea>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <input value="add review" type="submit">
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Product tab Content -->
+                            </div>
+                            <!-- Product Full Description End -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product Page Content End -->
+        </div>
+    </div>
+</div>
+<!--== Page Content Wrapper End ==-->
+ 
+
+  
+
+ {% endblock %}
+<!--main body end-->
+
+  <!--footer part-->
+ {% block footer %}
+ 
+   {% include "footer.html" %}
+ 
+ {% endblock footer %}

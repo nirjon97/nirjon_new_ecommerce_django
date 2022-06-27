@@ -1,0 +1,96 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+<!--== Page Title Area Start ==-->
+<div id="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1>Wishlist</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="{%url 'Home' %}">Home</a></li>
+                        <li><a href="{%url 'gender_category' %}">Products</a></li>
+                        <li><a href="#" class="active">Wishlist</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Title Area End ==-->
+
+<!--== Page Content Wrapper Start ==-->
+<div id="page-content-wrapper" class="p-9">
+    <div class="container">
+
+             <!--message showing -->
+
+             {%if messages %} {% for message in messages %}
+             <div class="alert alert-{{ message.tags }}" role="alert">
+                 {{message}}
+             </div>
+             {% endfor %} {% endif %}
+
+        <!-- Wishlist Page Content Start -->
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Wishlist Table Area -->
+                <div class="cart-table table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="pro-thumbnail">Thumbnail</th>
+                            <th class="pro-title">Product</th>
+                            <th class="pro-price">Old Price</th>
+                            <th class="pro-quantity">New Price</th>
+                            <th class="pro-subtotal">Add to Cart</th>
+                            <th class="pro-remove">Remove</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in wishlist_product %}
+                        <tr>
+                            <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{{p.product.ImageUrl}}"
+                                                                       alt="Product"/></a></td>
+                            <td class="pro-title"><a href="#">{{p.product.title}}</a></td>
+                            <td class="pro-price"><del><span class="text-danger">${{p.product.old_price}}</span></del></td>
+                            <td class="pro-quantity"><span class="text-success">${{p.product.new_price}}</span></td>
+                            <td class="pro-subtotal"><a href="{%url 'Add_to_Shoping_cart' id=p.product.id %}" class="btn-add-to-cart">Add to Cart</a></td>
+                            <td class="pro-remove"><a href="{%url 'wishlist_delete' id=p.id %}"><i class="fa fa-trash-o"></i></a></td>
+                        </tr>
+                           {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Wishlist Page Content End -->
+    </div>
+</div>
+<!--== Page Content Wrapper End ==-->
+
+
+
+
+
+ {% endblock %}
+ <!--main body end-->
+ 
+   <!--footer part-->
+  {% block footer %}
+  
+    {% include "footer.html" %}
+  
+  {% endblock footer %}

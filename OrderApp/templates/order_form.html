@@ -1,0 +1,234 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+
+ <!--== Page Title Area Start ==-->
+<div id="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1>Checkout</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="{%url 'Home' %}">Home</a></li>
+                        <li><a href="{%url 'gender_category' %}">Products</a></li>
+                        <li><a href="#" class="active">Checkout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Title Area End ==-->
+
+
+<!--== Page Content Wrapper Start ==-->
+<div id="page-content-wrapper" class="p-9">
+    <div class="container">
+        <!--== Checkout Page Content Area ==-->
+        <div class="row">
+            <div class="col-12">
+                <!-- Checkout Login Coupon Accordion Start -->
+                <div class="checkoutaccordion" id="checkOutAccordion">
+                    <div class="card">
+                        <h3>Returning Customer? <a href="{%url 'user_login' %}">Click Here To Login</a>
+                        </h3>
+
+                        <div id="logInaccordion" class="collapse" data-parent="#checkOutAccordion">
+                            <div class="card-body">
+                                <p>If you have shopped with us before, please enter your details in the boxes below. If
+                                    you are a new customer, please proceed to the Billing &amp; Shipping section.</p>
+                                <div class="login-reg-form-wrap">
+                                    <form action="#" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="single-input-item">
+                                                    <input type="email" placeholder="Enter your Email" required/>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="single-input-item">
+                                                    <input type="password" placeholder="Enter your Password" required/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
+                                                <div class="remember-meta">
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                               id="rememberMe">
+                                                        <label class="custom-control-label" for="rememberMe">Remember
+                                                            Me</label>
+                                                    </div>
+                                                </div>
+
+                                                <a href="#" class="forget-pwd">Forget Password?</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="single-input-item">
+                                            <button class="btn-login">Login</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                   
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Checkout Billing Details -->
+            <div class="col-lg-6">
+                <div class="checkout-billing-details-wrap">
+                    <h2>Billing Details</h2>
+                    <div class="billing-form-wrap">
+                        <form method='POST' enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label for="f_name" class="required">First Name</label>
+                                        <input type="text" id="f_name" value="{{user.first_name}}" name="first_name" placeholder="First Name"/>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="single-input-item">
+                                        <label for="l_name" class="required">Last Name</label>
+                                        <input type="text" id="l_name" value="{{user.last_name}}" name="last_name" placeholder="Last Name"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="single-input-item">
+                                <label for="email" class="required">Email Address</label>
+                                <input type="email" id="email" value="{{user.email}}" placeholder="Email Address"/>
+                            </div>
+
+
+                            <div class="single-input-item">
+                                <label for="country" class="required">Country</label>
+                                <select name="country" id="country" value="{{profile.country}}">
+                                    <option value="Bangladesh">Bangladesh</option>
+                                    <option value="India">India</option>
+                                    <option value="Pakistan">Pakistan</option>
+                                    <option value="England">England</option>
+                                    <option value="London">London</option>
+                                    <option value="London">London</option>
+                                    <option value="Chaina">Chaina</option>
+                                </select>
+                            </div>
+
+                            <div class="single-input-item">
+                                <label for="street-address" class="required">Street address</label>
+                                <input type="text" id="street-address" value="{{profile.address}}" name="address" placeholder="Street address"/>
+                            </div>
+
+
+                            <div class="single-input-item">
+                                <label for="town" class="required">Town / City</label>
+                                <input type="text" id="town" value="{{profile.city}}" name="city" placeholder="Town / City"/>
+                            </div>
+
+                            
+                            <div class="single-input-item">
+                                     <label for="phone">Phone</label>
+                                    <input type="text" id="phone" value="{{profile.phone}}" name="phone" placeholder="Phone"/>
+                            </div>                               
+
+                            <br>
+                            <button type="submit" class="btn btn-primary btn-lg">Place Order</button><br>
+                       </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Order Summary Details -->
+            <div class="col-lg-6 mt-5 mt-lg-0">
+                <div class="order-summary-details">
+                    <h2>Your Order Summary</h2>
+                    <div class="order-summary-content">
+                        <!-- Order Summary Table -->
+                        <div class="order-summary-table table-responsive text-center">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Products</th>
+                                    <th>Total</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                    {% for p in shoping_cart %}
+                                <tr>
+                                    <td>{{p.product.title}}<strong> × {{p.quantity}}</strong></a></td>
+                                    <td>£{{p.amount}}</td>
+                                </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td>Sub Total</td>
+                                    <td><strong>${{total_amount}}</strong></td>
+                                </tr>
+
+                                <tr>
+                                    <td>Shipping</td>
+                                    <td class="d-flex justify-content-center">
+                                        <h3>$0.00</h3>
+                                       
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Amount</td>
+                                    <td><strong>${{total_amount}}</strong></td>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+
+                       
+                    
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+        <!--== Checkout Page Content End ==-->
+    </div>
+</div>
+<!--== Page Content Wrapper End ==-->
+
+
+
+
+ 
+ {% endblock %}
+ <!--main body end-->
+ 
+   <!--footer part-->
+  {% block footer %}
+  
+    {% include "footer.html" %}
+  
+  {% endblock footer %}

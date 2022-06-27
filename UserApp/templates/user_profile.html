@@ -1,0 +1,340 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+
+<!--== Page Title Area Start ==-->
+<div id="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="{%url 'Home' %}">Home</a></li>
+                        <li><a href="#" class="active">Dashboard</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Title Area End ==-->
+
+<!--== Page Content Wrapper Start ==-->
+<div id="page-content-wrapper" class="p-9">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- My Account Page Start -->
+                <div class="myaccount-page-wrapper">
+                    <!-- My Account Tab Menu Start -->
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="myaccount-tab-menu nav" role="tablist">
+                                <a href="#dashboad" class="active" data-toggle="tab"><i class="fa fa-dashboard"></i>
+                                    Dashboard</a>
+
+                                <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i> Orders</a>
+
+                                <a href="#download" data-toggle="tab"><i class="fa fa-cloud-download"></i>Order products</a>
+
+                                <a href="#payment-method" data-toggle="tab"><i class="fa fa-credit-card"></i> Payment
+                                    Method</a>
+
+                                <a href="#address" data-toggle="tab"><i class="fa fa-map-marker"></i> address</a>
+
+                                <!--<a href="{%url 'user_update'%}"><i class="fa fa-user"></i> Account Details</a>-->
+
+                                <a href="{%url 'user_logout' %}"><i class="fa fa-sign-out"></i> Logout</a>
+                            </div>
+                        </div>
+                        <!-- My Account Tab Menu End -->
+
+                        <!-- My Account Tab Content Start -->
+                        <div class="col-lg-9 mt-5 mt-lg-0">
+                            <div class="tab-content" id="myaccountContent">
+                                <!-- Single Tab Content Start -->
+                                <!--messaage showing start-->
+                                {%if messages %} {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{message}}
+                                </div>
+                                {% endfor %} {% endif %}
+                                <!--messaage showing end-->
+
+                                <div class="tab-pane fade show active" id="dashboad" role="tabpanel">
+                                    <div class="tab-content" id="myaccountContent">
+                                        <!-- Single Tab Content Start -->
+                                        <table class="shopping-cart-table table">
+                                            <tr>
+                                                <th class="text-left">
+                                                    <a href="{% url 'user_update' %}" class="primary-btn">Update Profile</a>
+                                                    &nbsp; &nbsp; &nbsp;
+                                                    <a href="{% url 'user_password' %}" class="primary-btn">Change Password</a>
+                                                </th>
+                                                <td><img src="{{ profile.imageUrl}}"
+                                                        style="border-radius:10px; height: 100px;width:100px; ">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Name :</th>
+                                                <td class="text-left">{{ user.first_name}} {{ user.last_name}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Email</th>
+                                                <td class="text-left">{{ profile.user.email}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Phone</th>
+                                                <td class="text-left">{{ profile.phone}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Address</th>
+                                                <td class="text-left">{{ profile.address}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">City</th>
+                                                <td class="text-left">{{ profile.city}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Country</th>
+                                                <td class="text-left">{{ profile.country}}</td>
+                                            </tr>
+              
+                                        </table>
+                                    </div>
+                                </div>
+                            
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="orders" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Orders</h3>
+
+                                        <div class="myaccount-table table-responsive text-center">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                <tr>
+                                                    <th>Order Code</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Total</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                {%for p in user_order%}
+                                                <tr>
+                                                    <td><b>{{p.code}}</b></td>
+                                                    <td><b>{{p.created_at}}</b></td>
+                                                    <td><b style="color:green;">{{p.status}}</b></td>
+                                                    <td><b>${{p.total}}</b></td>
+                                                    <td><a href="{%url 'user_order_details' id=p.id %}" class="btn-add-to-cart"><b>View</b></a></td>
+                                                </tr>
+                                               {%endfor%}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="download" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Order products</h3>
+
+                                        <div class="myaccount-table table-responsive text-center">
+                                            <table class="table table-bordered">
+                                                <thead class="thead-light">
+                                                    
+                                                <tr>
+                                                    <th class="pro-thumbnail"><b>images</b></th>
+                                                    <th class="pro-title">Product Title</th>
+
+                                                    <th class="li-product-price"> Price</th>
+                                                    <th class="li-product-price">Quantity</th>
+                                                    <th class="li-product-price"> Total Price</th>
+                                                    <th class="li-product-stock-status">Status</th>
+                                                </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    {% for p in order_product %}
+                                                    <tr>
+                    
+                    
+                    
+                    
+                                                        <td class="pro-thumbnail"><a href="#"><img src="{{p.product.ImageUrl}}"
+                                                                    style="height:80px;" alt=""></a></td>
+                                                        <td class="pro-title"><span class="amount">{{p.product.title}}</span></td>
+                                                        <td class="li-product-price"><span class="amount">${{p.price}}</span></td>
+                                                        <td class="li-product-price"><span class="amount"></span>{{p.quantity}}</span></td>
+                                                        <td class="li-product-price"><span class="amount">${{p.amountnow}}</span></td>
+                                                        <td class="li-product-stock-status"><span class="in-stock">{{p.status}}</span>
+                                                        </td>
+                    
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="payment-method" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Payment Method</h3>
+
+                                        <p class="saved-message">You Can't Saved Your Payment Method yet.</p>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                 <!-- Single Tab Content Start -->
+                                 <div class="tab-pane fade" id="address" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Address</h3>
+
+                                        <table class="shopping-cart-table table">
+                                            
+                                            
+                                            <tr>
+                                                <th class="text-left">Road NO: </th>
+                                                <td class="text-left"><b>10/4, Jigatola</b></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Home NO: </th>
+                                                <td class="text-left"><b>4/5, Jisan tower,4th floor</b></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">City</th>
+                                                <td class="text-left"><b>{{ profile.city}}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-left">Country</th>
+                                                <td class="text-left"><b>Bangladesh</b></td>
+                                            </tr>
+              
+                                        </table>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+                               
+                            
+          
+                            <!--end from here-->
+                                <!-- Single Tab Content End -->
+
+                                <!-- Single Tab Content Start -->
+                                <div class="tab-pane fade" id="account-info" role="tabpanel">
+                                    <div class="myaccount-content">
+                                        <h3>Account Details</h3>
+
+                                        <div class="account-details-form">
+                                            <form action="#">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="first-name" class="required">First Name</label>
+                                                            <input type="text" id="first-name"
+                                                                   placeholder="First Name"/>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-6">
+                                                        <div class="single-input-item">
+                                                            <label for="last-name" class="required">Last Name</label>
+                                                            <input type="text" id="last-name" name="last_name" placeholder="Last Name"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="single-input-item">
+                                                    <label for="display-name" class="required">Display Name</label>
+                                                    <input type="text" id="display-name" placeholder="Display Name"/>
+                                                </div>
+
+                                                <div class="single-input-item">
+                                                    <label for="email" class="required">Email Address</label>
+                                                    <input type="email" id="email" placeholder="Email Address"/>
+                                                </div>
+
+                                                <fieldset>
+                                                    <legend>Password change</legend>
+                                                    <div class="single-input-item">
+                                                        <label for="current-pwd" class="required">Current
+                                                            Password</label>
+                                                        <input type="password" id="current-pwd"
+                                                               placeholder="Current Password"/>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item">
+                                                                <label for="new-pwd" class="required">New
+                                                                    Password</label>
+                                                                <input type="password" id="new-pwd"
+                                                                       placeholder="New Password"/>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="single-input-item">
+                                                                <label for="confirm-pwd" class="required">Confirm
+                                                                    Password</label>
+                                                                <input type="password" id="confirm-pwd"
+                                                                       placeholder="Confirm Password"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+
+                                                <div class="single-input-item">
+                                                    <button class="btn-login btn-add-to-cart">Save Changes</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Single Tab Content End -->
+                            </div>
+                        </div>
+                        <!-- My Account Tab Content End -->
+                    </div>
+                </div>
+                <!-- My Account Page End -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Content Wrapper End ==-->
+
+
+
+ {% endblock %}
+ <!--main body end-->
+ 
+   <!--footer part-->
+  {% block footer %}
+  
+    {% include "footer.html" %}
+  
+  {% endblock footer %}

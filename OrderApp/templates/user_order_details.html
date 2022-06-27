@@ -1,0 +1,147 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+
+<!--== Page Title Area Start ==-->
+<div id="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1>Dashboard</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="{%url 'Home'%}">Home</a></li>
+                        <li><a href="#" class="active">Order Details</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Title Area End ==-->
+
+
+
+
+<!--personal info Area Strat-->
+<div class="page-section mb-60">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1 style="color:red;"><b>Personal Info</b></h1>
+                </div>
+            </div>
+            <br>
+           
+
+            <div class="col-sm-12 col-md-12 col-lg-9 col-xs-12 text-center">
+                        <table class="shopping-cart-table table">
+                            <br>
+                        <tr>
+                            <th class="text-left"><h2>Name Surname :</h2></th>
+                            <td class="text-left"><b>{{ order.first_name}} {{ order.last_name}}</b> </td>
+                        </tr>
+                        <tr>
+                            <th class="text-left"><h2>Phone :</h2></th>
+                            <td class="text-left"><b>{{ order.phone}}</b></td>
+                        </tr>
+                        <tr>
+                            <th class="text-left"><h2>Address :</h2></th>
+                            <td class="text-left"><b>{{ order.address}} {{ order.city}} {{ order.country}} </b></td>
+                        </tr>
+                        <tr>
+                            <th class="text-left"><h2>Status :</h2></th>
+                            <td class="text-left"><b>{{ order.status}}</b></td>
+                        </tr>
+                        <tr>
+                            <th class="text-left"><h2>Date :</h2> </th>
+                            <td class="text-left"><b>{{ order.created_at}}</b></td>
+                        </tr>
+                        <tr>
+                            <th class="text-left"><h2>Shipping Info :</h2> </th>
+                            <td class="text-left"><b>{{ order.adminnote}}</b></td>
+                        </tr>
+                        <br><br>
+
+
+                    </table>
+                    
+            </div>
+        </div>
+
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12">
+                    <div class="col-12 text-center">
+                        <div class="page-title-content">
+                            <h1 style="color:red;"><b>Order Product</b></h1>
+                        </div>
+                    </div>
+                    <br>
+
+
+                    <div class="cart-table table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+
+                                    <th class="pro-thumbnail"><b>images</b></th>
+                                    <th class="pro-title">Product Title</th>
+
+                                    <th class="li-product-price"> Price</th>
+                                    <th class="li-product-price">Quantity</th>
+                                    <th class="li-product-price"> Total Price</th>
+                                    <th class="li-product-stock-status">Status</th>
+            
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in order_products %}
+                                <tr>
+
+
+
+
+                                    <td class="pro-thumbnail"><a href="#"><img src="{{p.product.ImageUrl}}"
+                                                style="height:80px;" alt=""></a></td>
+                                    <td class="pro-title"><span class="amount">{{p.product.title}}</span></td>
+                                    <td class="li-product-price"><span class="amount">${{p.price}}</span></td>
+                                    <td class="li-product-price"><span class="amount"></span>{{p.quantity}}</span></td>
+                                    <td class="li-product-price"><span class="amount">${{p.amountnow}}</span></td>
+                                    <td class="li-product-stock-status"><span class="in-stock">{{p.status}}</span>
+                                    </td>
+
+                                </tr>
+                                {% endfor %}
+                                
+
+                            </tbody>
+                        </table>
+                    </div>
+            </div>
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}
+<!--main body end-->
+
+  <!--footer part-->
+ {% block footer %}
+ 
+   {% include "footer.html" %}
+ 
+ {% endblock footer %}

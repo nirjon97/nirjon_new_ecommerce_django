@@ -1,0 +1,108 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+
+
+  <!--== Page Title Area Start ==-->
+<div id="page-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <div class="page-title-content">
+                    <h1>Member Area</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="{%url 'Home' %}">Home</a></li>
+                        <li><a href="#" class="active">Login</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Title Area End ==-->
+
+<!--== Page Content Wrapper Start ==-->
+<div id="page-content-wrapper" class="p-9">
+    <div class="container">
+                <!--message showing start-->
+                {%if messages %} {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}" role="alert">
+                    {{message}}
+                </div>
+                {% endfor %} {% endif %}
+                <!--message showing end-->
+
+        <div class="row">
+            <div class="col-lg-7 m-auto">
+                <!-- Login & Register Content Start -->
+                <div class="login-register-wrapper">
+                    <!-- Login & Register tab Menu -->
+                    <nav class="nav login-reg-tab-menu">
+                        <a class="active" id="login-tab" data-toggle="tab" href="#login">Login</a>
+                        
+                    </nav>
+                    <!-- Login & Register tab Menu -->
+
+                    <div class="tab-content" id="login-reg-tabcontent">
+                        <div class="tab-pane fade show active" id="login" role="tabpanel">
+                            <div class="login-reg-form-wrap">
+                                <form action="{% url 'user_login' %}" method="POST">
+                                    {% csrf_token %}
+                                    <div class="single-input-item">
+                                        <input type="text" placeholder="Enter your Username" name="username" required/>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <input type="password" placeholder="Enter your Password" name="password" required/>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
+                                            <div class="remember-meta">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="rememberMe">
+                                                    <label class="custom-control-label" for="rememberMe">Remember
+                                                        Me</label>
+                                                </div>
+                                            </div>
+
+                                            <a href="#" class="forget-pwd">Forget Password?</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="single-input-item">
+                                        <button class="btn-login">Login</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                <!-- Login & Register Content End -->
+            </div>
+        </div>
+    </div>
+</div>
+<!--== Page Content Wrapper End ==-->
+
+
+
+
+ {% endblock %}
+ <!--main body end-->
+ 
+   <!--footer part-->
+  {% block footer %}
+  
+    {% include "footer.html" %}
+  
+  {% endblock footer %}

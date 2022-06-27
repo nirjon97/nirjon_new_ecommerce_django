@@ -1,0 +1,59 @@
+{%extends 'index.html'%}
+{%load static%}
+
+<!--header part-->
+{% block header %}
+
+     {% include "header.html" %}
+
+{% endblock header %}
+
+<!--main part-->
+
+ {% block main_body %}
+ 
+   <!--== Page Title Area Start ==-->
+<div id="page-title-area">
+  <div class="container">
+      <div class="row">
+          <div class="col-12 text-center">
+              <div class="page-title-content">
+                  <h1>Checkout</h1>
+                  <ul class="breadcrumb">
+                      <li><a href="{%url 'Home' %}">Home</a></li>
+                      <li><a href="{%url 'gender_category' %}">Products</a></li>
+                      <li><a href="#" class="active">Men Products</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!--== Page Title Area End ==-->
+ <div class="container">
+    <div class="row my-3 gy-3">
+        {% for p in filter_category_men %}
+      <div class="col-sm-4">
+        <div class="card">
+           <a href="{% url 'category_product' p.slug%}"><img class="card-img-top" src="{{p.ImageUrl}}" alt="Card image cap"></a>
+              <div class="card-body">
+                  <a href="{% url 'category_product' p.slug%}"><h2 class="card-text">{{p.title}}</h2></a>
+              </div>
+        </div>
+        <br>
+      </div>
+      {% endfor %}
+    </div>
+</div>
+
+ <!--main body end-->
+
+ {% endblock %}
+
+
+ <!--footer part-->
+{% block footer %}
+
+  {% include "footer.html" %}
+
+{% endblock footer %}
