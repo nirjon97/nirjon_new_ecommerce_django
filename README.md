@@ -9,5 +9,5 @@ you can order products, add your wishlist product in your profile, create and up
  
  you can see live in here : https://nirjon-ecommerce-django.herokuapp.com/
  
- you can see in my youtube channel :
+ you can see in my youtube channel : https://www.youtube.com/watch?v=9tFK6n17u68
  
