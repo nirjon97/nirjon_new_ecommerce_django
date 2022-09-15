@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'ecom_project.wsgi.application'
 
      #   'USER': 'postgres',
 
-    #    'PASSWORD': 'nirjon123',
+    #    'PASSWORD': '',
 
    #     'HOST': 'localhost',
 
